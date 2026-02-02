@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>স্পোর্টস ক্লাব বাংলায়</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts for Bangla (Hind Siliguri) -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #198754; /* সবুজ - মাঠের রঙ */
+            --secondary-color: #0d6efd; /* নীল - আকাশের রঙ */
+            --dark-color: #212529;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* স্মুথ স্ক্রলিং */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* নেভিগেশন বার */
+        .navbar {
+            background-color: var(--dark-color);
+            padding: 15px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #fff !important;
+        }
+
+        .nav-link {
+            color: #ccc !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #fff !important;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        /* হিরো সেকশন */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://picsum.photos/seed/stadium/1920/1080');
+            background-size: cover;
+            background-position: center;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        /* নোটিশ বোর্ড */
+        .notice-board {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .notice-title {
+            color: #856404;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* সেকশন হেডিং */
+        .section-title {
+            position: relative;
+            margin-bottom: 50px;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-color);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* প্লেয়ার কার্ড ডিজাইন */
+        .player-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: #fff;
+            height: 100%;
+        }
+
+        .player-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .player-img-wrapper {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .player-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .player-card:hover .player-img-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .role-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* স্কেডিউল ব্যানার */
+        .match-banner {
+            background: linear-gradient(45deg, var(--primary-color), #0f5132);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            box-shadow: 0 10px 20px rgba(25, 135, 84, 0.3);
+        }
+
+        .match-teams {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .vs-badge {
+            background: white;
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 800;
+        }
+
+        /* ফুটার */
+        footer {
+            background-color: var(--dark-color);
+            color: #ccc;
+            padding: 50px 0 20px;
+        }
+
+        footer h5 {
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        footer a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        /* ব্যাকগ্রাউন্ড কালার */
+        .bg-light-custom {
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- নেভিগেশন বার -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-futbol me-2"></i> স্পোর্টস ক্লাব বাংলায়
+            </a>
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#home">হোম</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#cricket">ক্রিকেট দল</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#football">ফুটবল দল</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#schedule">খেলার সূচি</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#management">ম্যানেজমেন্ট</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">যোগাযোগ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- হিরো সেকশন -->
+    <header id="home" class="hero-section">
+        <div class="container" data-aos="zoom-in" data-aos-duration="1000">
+            <h1 class="hero-title">স্বাগতম স্পোর্টস ক্লাব বাংলায়</h1>
+            <p class="lead my-4">আমরা খেলাধুলার জন্য, আমরা জয়ের জন্য। আমাদের ক্লাবের সাথেই থাকুন।</p>
+            <a href="#schedule" class="btn btn-success btn-lg rounded-pill px-5 shadow">পরবর্তী খেলা দেখুন</a>
+        </div>
+    </header>
+
+    <!-- নোটিশ বোর্ড এবং জেনারেটেড স্কেডিউল ব্যানার -->
+    <div class="container" data-aos="fade-up">
+        <div class="row mt-5">
+            <div class="col-md-4 mb-3">
+                <div class="notice-board h-100">
+                    <h5 class="notice-title"><i class="fas fa-bullhorn"></i> নোটিশ বোর্ড</h5>
+                    <ul class="list-unstyled mb-0 mt-3 small">
+                        <li class="mb-2 border-bottom pb-2">
+                            <i class="fas fa-calendar-check text-success me-2"></i> আগামী শুক্রবার বিকেল ৪টায় নির্বাচক মহোদয়ের সাথে বৈঠক।
+                        </li>
+                        <li class="mb-2 border-bottom pb-2">
+                            <i class="fas fa-user-plus text-success me-2"></i> নতুন ফুটবলার নিবন্ধন শুরু হয়েছে।
+                        </li>
+                        <li>
+                            <i class="fas fa-tshirt text-success me-2"></i> জার্সি বিতরণ আগামী সপ্তাহে অনুষ্ঠিত হবে।
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8 mb-3">
+                <div class="match-banner h-100 d-flex align-items-center justify-content-center" id="dynamicMatchBanner">
+                    <!-- এখানে জাভাস্ক্রিপ্ট দিয়ে ডাইনামিক কন্টেন্ট বসানো হবে -->
+                    <div class="text-center">
+                        <div class="spinner-border text-light" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p>লোড হচ্ছে...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ক্রিকেট সেকশন -->
+    <section id="cricket" class="py-5 bg-light-custom mt-5">
+        <div class="container">
+            <h2 class="text-center section-title" data-aos="fade-up">আমাদের ক্রিকেট দল</h2>
+            <p class="text-center mb-5 text-muted" data-aos="fade-up">আমাদের ক্লাবের গর্বিত ক্রিকেটার এবং তাদের পারফরম্যান্স</p>
+
+            <!-- ক্রিকেট টিম লিস্ট -->
+            <div class="row g-4">
+                <!-- প্লেয়ার ১ -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card player-card">
+                        <div class="player-img-wrapper">
+                            <span class="role-badge">ওপেনার</span>
+                            <img src="https://picsum.photos/seed/cric1/400/300" alt="Player">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">রাকিবুল হাসান</h5>
+                            <p class="card-text text-muted small">রান মেশিন। ওপেনিংয়ে দলকে শক্ত ভিত্তি দেন।</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <span class="badge bg-light text-dark border"><i class="fas fa-star text-warning"></i> ৪.৮</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- প্লেয়ার ২ -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card player-card">
+                        <div class="player-img-wrapper">
+                            <span class="role-badge">অল-রাউন্ডার</span>
+                            <img src="https://picsum.photos/seed/cric2/400/300" alt="Player">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">সাকিব আহমেদ</h5>
+                            <p class="card-text text-muted small">ব্যাটিং এবং বোলিং দুটিতেই সমান দক্ষ।</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <span class="badge bg-light text-dark border"><i class="fas fa-star text-warning"></i> ৪.৯</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- প্লেয়ার ৩ -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card player-card">
+                        <div class="player-img-wrapper">
+                            <span class="role-badge">ফাস্ট বোলার</span>
+                            <img src="https://picsum.photos/seed/cric3/400/300" alt="Player">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">মোঃ করিম</h5>
+                            <p class="card-text text-muted small">১৪০ কিমি/ঘন্টা স্পিড। ব্যাটসম্যানদের দুঃস্বপ্ন।</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <span class="badge bg-light text-dark border"><i class="fas fa-star text-warning"></i> ৪.৫</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- প্লেয়ার ৪ -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card player-card">
+                        <div class="player-img-wrapper">
+                            <span class="role-badge">উইকেট কিপার</span>
+                            <img src="https://picsum.photos/seed/cric4/400/300" alt="Player">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">জুবায়ের হোসেন</h5>
+                            <p class="card-text text-muted small">দুর্দান্ত স্টাম্পিং এবং ফিনিশিং ব্যাটিং।</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <span class="badge bg-light text-dark border"><i class="fas fa-star text-warning"></i> ৪.৭</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ফুটবল সেকশন -->
+    <section id="football" class="py-5 mt-5">
+        <div class="container">
+            <h2 class="text-center section-title" data-aos="fade-up">আমাদের ফুটবল দল</h2>
+            <p class="text-center mb-5 text-muted" data-aos="fade-up">মাঠের যোদ্ধারা যারা শুধুই জয়ের জন্য খেলে</p>
+
+            <div class="row g-4">
+                <!-- ফুটবলার ১ -->
+                <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="card player-card">
+                        <div class="player-img-wrapper">
+                            <span class="role-badge bg-danger">ফরোয়ার্ড</span>
+                            <img src="https://picsum.photos/seed/foot1/400/300" alt="Player">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">তানভীর আহমেদ</h5>
+                            <p class="card-text text-muted small">স্ট্রাইকার। পেনাল্টি বক্সে ভয়ঙ্কর।</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <span class="badge bg-light text-dark border"><i class="fas fa-futbol text-success"></i> ৪.৮</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ফুটবলার ২ -->
+                <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="card player-card">
+                        <div class="player-img-wrapper">
+                            <span class="role-badge bg-primary">মিডফিল্ডার</span>
+                            <img src="https://picsum.photos/seed/foot2/400/300" alt="Player">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">রাফসান হাসান</h5>
+                            <p class="card-text text-muted small">পেস কন্ট্রোল এবং অ্যাসিস্ট কিং।</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <span class="badge bg-light text-dark border"><i class="fas fa-futbol text-success"></i> ৪.৬</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ফুটবলার ৩ -->
+                <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="card player-card">
+                        <div class="player-img-wrapper">
+                            <span class="role-badge bg-warning text-dark">ডিফেন্ডার</span>
+                            <img src="https://picsum.photos/seed/foot3/400/300" alt="Player">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">সুমন মিয়া</h5>
+                            <p class="card-text text-muted small">দুর্ভেদ্য প্রতিরক্ষা দেওয়ার কারিগর।</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <span class="badge bg-light text-dark border"><i class="fas fa-futbol text-success"></i> ৪.৫</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ফুটবলার ৪ -->
+                <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="card player-card">
+                        <div class="player-img-wrapper">
+                            <span class="role-badge bg-secondary">গোলকিপার</span>
+                            <img src="https://picsum.photos/seed/foot4/400/300" alt="Player">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">আব্দুল্লাহ আল মামুন</h5>
+                            <p class="card-text text-muted small">একক সমালোচক। গোলপোস্ট রক্ষায় অপ্রতিরোধ্য।</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <span class="badge bg-light text-dark border"><i class="fas fa-futbol text-success"></i> ৪.৯</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- খেলার সূচি (Schedule) -->
+    <section id="schedule" class="py-5 bg-light-custom mt-5">
+        <div class="container">
+            <h2 class="text-center section-title" data-aos="fade-right">খেলার সূচি</h2>
+            
+            <div class="table-responsive mt-4" data-aos="flip-up">
+                <table class="table table-hover bg-white shadow-sm rounded">
+                    <thead class="table-success">
+                        <tr>
+                            <th>তারিখ</th>
+                            <th>খেলা</th>
+                            <th>প্রতিপক্ষ</th>
+                            <th>ভেন্যু</th>
+                            <th>স্ট্যাটাস</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>১৫ অক্টোবর, ২০২৩</td>
+                            <td><i class="fas fa-baseball text-success me-2"></i> ক্রিকেট</td>
+                            <td>স্টার ক্লাব</td>
+                            <td>শহীদ সোহরাওয়ার্দী স্টেডিয়াম</td>
+                            <td><span class="badge bg-warning text-dark">আসন্ন</span></td>
+                        </tr>
+                        <tr>
+                            <td>২০ অক্টোবর, ২০২৩</td>
+                            <td><i class="fas fa-futbol text-primary me-2"></i> ফুটবল</td>
+                            <td>মোহামেডান স্পোর্টিং ক্লাব</td>
+                            <td>বঙ্গবন্ধু জাতীয় স্টেডিয়াম</td>
+                            <td><span class="badge bg-info">নিশ্চিত</span></td>
+                        </tr>
+                        <tr>
+                            <td>২৫ অক্টোবর, ২০২৩</td>
+                            <td><i class="fas fa-baseball text-success me-2"></i> ক্রিকেট</td>
+                            <td>আবাহনী লিমিটেড</td>
+                            <td>ক্লাব মাঠ</td>
+                            <td><span class="badge bg-secondary">ফাইনাল</span></td>
+                        </tr>
+                        <tr>
+                            <td>০৫ নভেম্বর, ২০২৩</td>
+                            <td><i class="fas fa-futbol text-primary me-2"></i> ফুটবল</td>
+                            <td>শেখ জামাল ধানমন্ডি</td>
+                            <td>বিকেএসপি</td>
+                            <td><span class="badge bg-warning text-dark">আসন্ন</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ম্যানেজমেন্ট এবং ঠিকানা -->
+    <section id="management" class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title" data-aos="fade-up">ক্লাব ম্যানেজমেন্ট ও ঠিকানা</h2>
+            
+            <div class="row mt-5">
+                <div class="col-md-6 mb-4" data-aos="fade-right">
+                    <div class="card h-100 border-0 shadow-sm p-4">
+                        <h4 class="mb-4"><i class="fas fa-users-cog text-primary"></i> এক্সিকিউটিভ কমিটি</h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                সভাপতি
+                                <span class="badge bg-success rounded-pill">জনাব আব্দুর রহিম</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                সাধারণ সম্পাদক
+                                <span class="badge bg-primary rounded-pill">জনাব কামরুল হাসান</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                ক্রিকেট সেক্রেটারি
+                                <span class="badge bg-warning text-dark rounded-pill">জনাব রাফি আহমেদ</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                ফুটবল সেক্রেটারি
+                                <span class="badge bg-danger rounded-pill">জনাব জুয়েল মিয়া</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4" id="contact" data-aos="fade-left">
+                    <div class="card h-100 border-0 shadow-sm p-4">
+                        <h4 class="mb-4"><i class="fas fa-map-marker-alt text-danger"></i> আমাদের ঠিকানা</h4>
+                        <div class="mb-3">
+                            <strong>ক্লাব অফিস:</strong><br>
+                            বাড়ি # ১২, রোড # ৫, ধানমন্ডি,<br>
+                            ঢাকা-১২০৯, বাংলাদেশ।
+                        </div>
+                        <div class="mb-3">
+                            <strong>যোগাযোগ:</strong><br>
+                            <i class="fas fa-phone me-2"></i> +৮৮০ ১৭১১-০০০০০০<br>
+                            <i class="fas fa-envelope me-2"></i> info@sportsclubbanglay.com
+                        </div>
+                        <div>
+                            <strong>সোশ্যাল মিডিয়া:</strong><br>
+                            <a href="#" class="me-3 fs-4"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="me-3 fs-4"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="me-3 fs-4"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="fs-4"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer>
+        <div class="container text-center">
+            <p>&copy; ২০২৪ স্পোর্টস ক্লাব বাংলায়। সর্বস্বত্ব সংরক্ষিত।</p>
+            <small class="text-white-50">Design with <i class="fas fa-heart text-danger"></i> by AI Assistant</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- কাস্টম জাভাস্ক্রিপ্ট -->
+    <script>
+        // AOS ইনিশিয়ালাইজ (অ্যানিমেশনের জন্য)
+        AOS.init({
+            offset: 120,
+            duration: 1000,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // ডায়নামিক খেলার সূচি ব্যানার জেনারেট করার লজিক
+        document.addEventListener('DOMContentLoaded', function() {
+            const bannerDiv = document.getElementById('dynamicMatchBanner');
+            
+            // আজকের তারিখ এবং সময় পাওয়া
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString('bn-BD', options);
+
+            // জেনারেট করা কন্টেন্ট সেট করা (HTML টেমপ্লেট)
+            const matchContent = `
+                <div class="text-center w-100">
+                    <span class="badge bg-warning text-dark mb-2 fs-6">পরবর্তী বড় ম্যাচ</span>
+                    <div class="match-teams justify-content-center mt-3">
+                        <span>স্পোর্টস ক্লাব</span>
+                        <span class="vs-badge">VS</span>
+                        <span>স্টার ক্লাব</span>
+                    </div>
+                    <p class="mt-3 mb-0"><i class="far fa-calendar-alt"></i> আগামী শুক্রবার, বিকেল ৪:০০ ঘটিকা</p>
+                    <p class="small text-white-50 mt-1">${dateString} হিসেবে আপডেট</p>
+                    <a href="#schedule" class="btn btn-light btn-sm mt-2 fw-bold text-success">বিস্তারিত দেখুন</a>
+                </div>
+            `;
+
+            // ১.৫ সেকেন্ড পর ব্যানার দেখাবে (লোডিং এফেক্টের জন্য)
+            setTimeout(() => {
+                bannerDiv.innerHTML = matchContent;
+                bannerDiv.classList.add('animate__animated', 'animate__fadeIn'); // ফেইড ইন এফেক্ট
+            }, 1500);
+        });
+
+        // নেভিগেশন বার শ্যাডো এফেক্ট স্ক্রলের উপর ভিত্তি করে
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>
