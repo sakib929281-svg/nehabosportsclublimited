@@ -1,922 +1,560 @@
 <!DOCTYPE html>
-<html lang="bn" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nehabo Sports Club - Official Website</title>
-    
-    <!-- Bootstrap 5.3 CSS CDN -->
+    <title>Sakib | Personal Portfolio</title>
+    <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Hind Siliguri (Bangla) & Poppins (English) -->
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- উন্নত CSS ভেরিয়েবলস (Advanced Color Palette) --- */
+        /* Global Styles */
         :root {
-            --primary-color: #047857; /* সতেজ ইমারাল্ড গ্রিন */
-            --primary-dark: #064e3b;
-            --secondary-color: #dc2626; /* শক্তিশালী রেড */
-            --accent-color: #fbbf24; /* গোল্ড */
-            --dark-bg: #111827;
-            --light-bg: #f3f4f6;
-            --text-main: #1f2937;
-            --text-light: #f9fafb;
-            --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            --hover-shadow: 0 20px 40px rgba(4, 120, 87, 0.25);
-            --glass-bg: rgba(255, 255, 255, 0.9);
+            --primary-green: #198754; /* Bootstrap Success Color */
+            --light-green: #d1e7dd;
+            --dark-text: #333;
+            --white: #ffffff;
         }
 
         body {
-            font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark-text);
             overflow-x: hidden;
-            background-color: var(--light-bg);
-            color: var(--text-main);
         }
 
-        /* --- কাস্টম স্ক্রলবার --- */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #e5e7eb; }
-        ::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 4px; }
+        /* Custom Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-        /* --- লোডার --- */
-        #preloader {
-            position: fixed; inset: 0; background: #fff; z-index: 9999;
-            display: flex; justify-content: center; align-items: center;
-            transition: opacity 0.5s ease;
+        .animate-fade-in {
+            animation: fadeInUp 1s ease-out forwards;
         }
-        .loader-wrapper {
-            text-align: center;
-        }
-        .spinner-border-custom {
-            width: 3rem; height: 3rem;
-            border: 4px solid rgba(4, 120, 87, 0.1);
-            border-left-color: var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* --- নেভিগেশন বার --- */
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* Navbar Styles */
         .navbar {
+            background-color: var(--white);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
             padding: 1rem 0;
-            background: transparent;
-            transition: all 0.4s ease;
         }
-        .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            padding: 0.7rem 0;
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-green) !important;
+            font-size: 1.5rem;
         }
-        .navbar-brand { 
-            font-weight: 800; font-size: 1.8rem; color: #fff !important; 
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        .navbar.scrolled .navbar-brand { color: var(--primary-color) !important; text-shadow: none; }
-        
+
         .nav-link {
-            font-weight: 600; color: rgba(255,255,255,0.95) !important; margin: 0 10px; position: relative;
-            font-family: 'Hind Siliguri', sans-serif; font-size: 1.05rem;
-        }
-        .navbar.scrolled .nav-link { color: #374151 !important; }
-        .nav-link::after {
-            content: ''; position: absolute; width: 0; height: 3px; bottom: 0; left: 50%;
-            background: var(--accent-color); transition: all 0.3s ease; transform: translateX(-50%); border-radius: 2px;
-        }
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-
-        /* --- বাটন স্টাইল --- */
-        .btn-custom {
-            padding: 12px 30px; border-radius: 50px; font-weight: 600; transition: all 0.3s ease;
-            border: none; text-transform: uppercase; letter-spacing: 0.5px; position: relative; overflow: hidden;
-        }
-        .btn-primary-custom {
-            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
-            color: white; box-shadow: 0 5px 15px rgba(4, 120, 87, 0.3);
-        }
-        .btn-primary-custom:hover {
-            transform: translateY(-3px); box-shadow: 0 10px 25px rgba(4, 120, 87, 0.4); color: white;
-        }
-        .btn-secondary-custom {
-            background: white; color: var(--primary-color); border: 2px solid var(--primary-color);
-        }
-        .btn-secondary-custom:hover {
-            background: var(--primary-color); color: white; transform: translateY(-3px);
-        }
-        .btn-read-more {
-            background: transparent; border: 1px solid #e5e7eb; color: #4b5563;
-            transition: all 0.3s;
-        }
-        .btn-read-more:hover {
-            border-color: var(--primary-color); color: var(--primary-color); background: rgba(4, 120, 87, 0.05);
+            color: var(--dark-text) !important;
+            font-weight: 500;
+            margin-left: 15px;
+            transition: color 0.3s;
         }
 
-        /* --- হিরো সেকশন --- */
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-green) !important;
+        }
+
+        /* Hero Section */
         .hero-section {
-            min-height: 100vh;
-            /* ডার্ক ওভারলে সহ ব্যাকগ্রাউন্ড */
-            background: linear-gradient(135deg, rgba(4, 120, 87, 0.85), rgba(17, 24, 39, 0.9)), url('https://picsum.photos/seed/stadium_bd_night/1920/1080.jpg');
-            background-size: cover; background-position: center; background-attachment: fixed;
-            display: flex; align-items: center; justify-content: center; text-align: center;
-            color: white; padding-top: 80px; position: relative;
+            padding: 100px 0;
+            background: linear-gradient(135deg, #ffffff 0%, #e9f7ef 100%);
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
         }
-        .hero-title {
-            font-weight: 800; font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            animation: fadeInDown 1s ease-out;
+
+        .profile-img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid var(--primary-green);
+            box-shadow: 0 10px 25px rgba(25, 135, 84, 0.3);
+            margin-bottom: 20px;
         }
-        .hero-desc {
-            font-size: 1.4rem; font-weight: 300; margin-bottom: 40px; color: #e0e0e0;
-            font-family: 'Hind Siliguri', sans-serif; animation: fadeInUp 1s ease-out 0.3s backwards;
+
+        .btn-custom {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
-        
-        /* স্ট্যাটাস কার্ড (Stats) - গ্লাস ইফেক্ট */
-        .stats-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px 20px;
-            margin-top: -60px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+
+        .btn-custom:hover {
+            background-color: #146c43;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(25, 135, 84, 0.4);
+            color: white;
+        }
+
+        .btn-outline-custom {
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 10px 28px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .btn-outline-custom:hover {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
             position: relative;
-            z-index: 10;
-            border-bottom: 5px solid var(--accent-color);
-        }
-        .stat-number {
-            font-size: 3rem; font-weight: 800; color: var(--primary-color);
-            line-height: 1;
-        }
-        .stat-label {
-            font-weight: 600; color: #6b7280; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; margin-top: 5px;
         }
 
-        /* --- সেকশন কমন স্টাইল --- */
-        .section-padding { padding: 100px 0; }
-        .section-header {
-            text-align: center; margin-bottom: 60px; position: relative;
+        .section-title h2 {
+            font-weight: 700;
+            color: var(--primary-green);
         }
-        .section-header h2 { font-weight: 800; font-size: 2.5rem; color: var(--dark-bg); position: relative; display: inline-block; }
-        .section-header h2::after {
-            content: ''; display: block; width: 60px; height: 4px; background: var(--secondary-color);
-            margin: 10px auto 0; border-radius: 2px;
-        }
-        .section-header p { color: #6b7280; margin-top: 15px; max-width: 600px; margin-left: auto; margin-right: auto; }
 
-        /* --- টিম / খেলোয়াড় কার্ড --- */
-        .player-card {
-            background: #fff; border-radius: 15px; overflow: hidden;
-            box-shadow: var(--card-shadow); transition: all 0.4s ease; height: 100%;
-            border: 1px solid rgba(0,0,0,0.03);
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-green);
+            display: block;
+            margin: 10px auto 0;
         }
-        .player-card:hover { transform: translateY(-10px); box-shadow: var(--hover-shadow); }
+
+        /* Portfolio Cards */
+        .project-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 30px;
+            height: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .project-img-wrapper {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .project-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .project-card:hover .project-img-wrapper img {
+            transform: scale(1.1);
+        }
+
+        /* Modal Animation Customization */
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            background-color: var(--primary-green);
+            color: white;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+
+        /* Success Animation Checkmark */
+        .checkmark-circle {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            display: inline-block;
+            vertical-align: top;
+            margin-bottom: 20px;
+        }
+        .checkmark-circle .background {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            position: absolute;
+        }
+        .checkmark-circle .checkmark {
+            border-radius: 5px;
+        }
+        .checkmark-circle .checkmark.draw:after {
+            animation-delay: 100ms;
+            animation-duration: 1s;
+            animation-timing-function: ease;
+            animation-name: checkmark;
+            transform: scaleX(-1) rotate(135deg);
+            animation-fill-mode: forwards;
+        }
+        .checkmark-circle .checkmark:after {
+            opacity: 1;
+            height: 50px;
+            width: 25px;
+            transform-origin: left top;
+            border-right: 10px solid white;
+            border-top: 10px solid white;
+            content: '';
+            left: 25px;
+            top: 50px;
+            position: absolute;
+        }
+        @keyframes checkmark {
+            0% { height: 0; width: 0; opacity: 1; }
+            20% { height: 0; width: 25px; opacity: 1; }
+            40% { height: 50px; width: 25px; opacity: 1; }
+            100% { height: 50px; width: 25px; opacity: 1; }
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: white;
+        }
         
-        .player-img-box {
-            position: relative; height: 300px; overflow: hidden;
-        }
-        .player-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .player-card:hover .player-img-box img { transform: scale(1.1); }
-        
-        .player-badge {
-            position: absolute; top: 20px; right: 20px;
-            background: var(--accent-color); color: var(--dark-bg);
-            padding: 5px 15px; border-radius: 30px; font-weight: 700; font-size: 0.8rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 2;
+        .form-control {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            background-color: #f8f9fa;
         }
 
-        .social-overlay {
-            position: absolute; bottom: -50px; left: 0; width: 100%;
-            background: rgba(4, 120, 87, 0.9); padding: 15px;
-            display: flex; justify-content: center; gap: 15px; transition: bottom 0.4s ease;
-        }
-        .player-card:hover .social-overlay { bottom: 0; }
-        .social-btn {
-            width: 40px; height: 40px; background: #fff; color: var(--primary-color);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;
-            transition: 0.3s;
-        }
-        .social-btn:hover { background: var(--accent-color); color: var(--dark-bg); transform: rotate(360deg); }
-
-        .player-info { padding: 25px; text-align: center; position: relative; }
-        .player-info h4 { font-weight: 700; margin-bottom: 5px; color: var(--dark-bg); }
-        .player-role { color: var(--primary-color); font-weight: 600; font-size: 0.9rem; margin-bottom: 20px; display: block; }
-
-        /* --- গ্যালারি --- */
-        .gallery-item {
-            position: relative; border-radius: 15px; overflow: hidden; cursor: pointer;
-            height: 250px; margin-bottom: 24px;
-        }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-        .gallery-overlay {
-            position: absolute; inset: 0; background: rgba(0,0,0,0.6);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: 0.3s;
-        }
-        .gallery-item:hover .gallery-overlay { opacity: 1; }
-        .gallery-item:hover img { transform: scale(1.1) rotate(1deg); }
-
-        /* --- নোটিশ বোর্ড --- */
-        .notice-board {
-            background: var(--dark-bg); color: white;
-            padding: 15px 0; position: relative; overflow: hidden;
-        }
-        .notice-title {
-            background: var(--secondary-color); padding: 10px 25px;
-            font-weight: 700; clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
-            z-index: 5; position: relative;
-        }
-        .ticker-wrap { width: 100%; overflow: hidden; white-space: nowrap; }
-        .ticker-move { display: inline-block; animation: ticker 30s linear infinite; }
-        .ticker-item { display: inline-block; padding: 0 40px; font-size: 1rem; }
-        @keyframes ticker { 0% { transform: translate3d(100%, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
-
-        /* --- ম্যাচ কার্ড --- */
-        .match-section { background-color: #eef2f6; }
-        .match-card {
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #1f2937 100%);
-            color: white; border-radius: 20px; padding: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-            position: relative; overflow: hidden;
-        }
-        .match-card::before {
-            content: ''; position: absolute; top: -50px; left: -50px; width: 200px; height: 200px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        .form-control:focus {
+            box-shadow: none;
+            border-color: var(--primary-green);
+            background-color: #fff;
         }
 
-        /* --- ফুটার --- */
-        footer { background: #0b0f19; color: #9ca3af; padding-top: 80px; border-top: 4px solid var(--primary-color); }
-        .footer-heading { color: white; font-weight: 700; margin-bottom: 25px; font-size: 1.2rem; }
-        .footer-link { color: #9ca3af; text-decoration: none; display: block; margin-bottom: 12px; transition: 0.3s; }
-        .footer-link:hover { color: var(--accent-color); padding-left: 5px; }
-        
-        /* --- মোডাল (Modal) --- */
-        .modal-content { border-radius: 20px; border: none; }
-        .modal-header { border-bottom: none; padding: 20px 30px; }
-        .player-modal-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary-color); }
-        .stat-row-item { border-right: 1px solid #e5e7eb; }
-        .stat-row-item:last-child { border-right: none; }
-
-        /* --- টোস্ট --- */
-        .toast-custom { border-radius: 10px; border: none; }
-
-        /* --- অ্যানিমেশন ক্লাস --- */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- রেস্পন্সিভ --- */
-        @media (max-width: 768px) {
-            .hero-title { font-size: 2.2rem; }
-            .notice-title { clip-path: none; margin-bottom: 10px; display: inline-block; }
+        footer {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
         }
     </style>
 </head>
-<body data-bs-spy="scroll" data-bs-target="#mainNavbar" data-bs-offset="100">
+<body data-bs-spy="scroll" data-bs-target="#navbarNav">
 
-    <!-- প্রিলোডার -->
-    <div id="preloader">
-        <div class="loader-wrapper">
-            <div class="spinner-border-custom mb-3"></div>
-            <h4 class="fw-bold text-success">SBSC Loading...</h4>
-        </div>
-    </div>
-
-    <!-- নেভিগেশন বার -->
-    <nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#home">
-                <i class="fas fa-crown text-warning me-2"></i>NSC
-            </a>
-            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <i class="fas fa-bars text-white fs-2" id="menuIcon"></i>
+            <a class="navbar-brand" href="#"><i class="fas fa-code me-2"></i>Sakib</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" href="#home">হোম</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#stats">পরিসংখ্যান</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#teams">আমাদের দল</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#gallery">গ্যালারি</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#schedule">সময়সূচী</a></li>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
-                <button class="btn btn-custom btn-primary-custom" data-bs-toggle="modal" data-bs-target="#joinModal">
-                    যোগ দিন <i class="fas fa-arrow-right ms-2 small"></i>
-                </button>
+                <a href="#contact" class="btn btn-custom ms-lg-3 mt-2 mt-lg-0">Hire Me</a>
             </div>
         </div>
     </nav>
 
-    <!-- হিরো সেকশন -->
-    <header id="home" class="hero-section">
-        <div class="container position-relative z-1">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <span class="badge bg-warning text-dark mb-3 px-4 py-2 rounded-pill fw-bold shadow">Welcome to SBSC</span>
-                    <h1 class="hero-title">NEHABO SPORTS CLUB</h1>
-                    <p class="hero-desc">
-                        আমরা খেলাধুলার মাধ্যমে স্বপ্ন দেখি, জয়ের জন্য লড়ি।<br>
-                        দেশের সেরা ক্রীড়া সংগঠন গড়ার প্রত্যয়।
-                    </p>
-                    <div class="mt-4">
-                        <button class="btn btn-custom btn-primary-custom me-3" onclick="scrollToSection('teams')">
-                            খেলোয়াড় দেখুন
-                        </button>
-                        <button class="btn btn-custom btn-secondary-custom" onclick="openContactModal()">
-                            যোগাযোগ করুন
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- নিচের স্ক্রল ইঙ্গিত -->
-        <div class="position-absolute bottom-0 start-50 translate-middle-x mb-5 animate-bounce">
-            <a href="#stats" class="text-white text-decoration-none opacity-75">
-                <i class="fas fa-chevron-down fs-3"></i>
-            </a>
-        </div>
-    </header>
-
-    <!-- পরিসংখ্যান সেকশন -->
-    <div class="container">
-        <div class="stats-card row text-center reveal">
-            <div class="col-6 col-md-3 mb-4 mb-md-0">
-                <div class="stat-item">
-                    <i class="fas fa-trophy text-warning mb-3 fs-4"></i>
-                    <div class="stat-number counter" data-target="28">0</div>
-                    <div class="stat-label">ট্রফি জয়</div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 mb-4 mb-md-0">
-                <div class="stat-item">
-                    <i class="fas fa-users text-primary mb-3 fs-4"></i>
-                    <div class="stat-number counter" data-target="150">0</div>
-                    <div class="stat-label">সক্রিয় সদস্য</div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 mb-4 mb-md-0">
-                <div class="stat-item">
-                    <i class="fas fa-futbol text-success mb-3 fs-4"></i>
-                    <div class="stat-number counter" data-target="340">0</div>
-                    <div class="stat-label">ম্যাচ খেলেছে</div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="stat-item">
-                    <i class="fas fa-medal text-danger mb-3 fs-4"></i>
-                    <div class="stat-number counter" data-target="12">0</div>
-                    <div class="stat-label">বছরের ঐতিহ্য</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- নোটিশ বোর্ড -->
-    <div class="notice-board mt-5">
-        <div class="container d-flex align-items-center flex-wrap">
-            <div class="notice-title text-white">
-                <i class="fas fa-bullhorn me-2"></i> লেটেস্ট নোটিশ
-            </div>
-            <div class="ticker-wrap">
-                <div class="ticker-move">
-                    <span class="ticker-item">🔥 আগামী 09 February Football টিম সিলেকশন, সবাইকে উপস্থিত থাকার অনুরোধ।</span>
-                    <span class="ticker-item">🏆 ক্লাবের বার্ষিক পুরস্কার বিতরণী অনুষ্ঠানের তারিখ ঘোষণা শীঘ্রই।</span>
-                    <span class="ticker-item">⚽ ফুটবল প্র্যাকটিস সময় পরিবর্তন: এখন থেকে প্রতি শুক্রবার বিকাল ৪টা।</span>
-                    <span class="ticker-item">👕 নতুন জার্সি অর্ডার করার শেষ তারিখ 7 February।</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- টিম সেকশন (খেলোয়াড়) -->
-    <section id="teams" class="section-padding">
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
         <div class="container">
-            <div class="section-header reveal">
-                <h2>আমাদের খেলোয়াড়</h2>
-                <p>আমাদের দলের পাওয়ারহাউস এবং তারকা খেলোয়াড়দের সাথে পরিচিত হন।</p>
-            </div>
-
-            <!-- ফিল্টার বাটন -->
-            <div class="d-flex justify-content-center gap-3 mb-5 reveal">
-                <button class="btn btn-outline-success active rounded-pill px-4" onclick="filterPlayers('all', this)">সবাই</button>
-                <button class="btn btn-outline-success rounded-pill px-4" onclick="filterPlayers('cricket', this)">ক্রিকেট</button>
-                <button class="btn btn-outline-success rounded-pill px-4" onclick="filterPlayers('football', this)">ফুটবল</button>
-            </div>
-
-            <div class="row g-4" id="playerContainer">
-                <!-- প্লেয়ার ১ -->
-                <div class="col-md-6 col-lg-3 reveal player-item" data-category="cricket">
-                    <div class="player-card">
-                        <div class="player-img-box">
-                            <span class="player-badge">Captain</span>
-                            <img src="https://picsum.photos/seed/player_cricket_1/400/500" alt="Player">
-                            <div class="social-overlay">
-                                <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="player-info">
-                            <h4>রাকিবুল হাসান</h4>
-                            <span class="player-role">অল-রাউন্ডার (ক্রিকেট)</span>
-                            <button class="btn btn-read-more w-100 rounded-pill" onclick="showPlayerDetails('rakibul')">
-                                বিস্তারিত দেখুন <i class="fas fa-arrow-right ms-1 small"></i>
-                            </button>
-                        </div>
-                    </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6 text-center text-lg-start order-lg-2">
+                    <img src="https://picsum.photos/seed/sakib/400/400" alt="Sakib Profile" class="profile-img animate-fade-in">
                 </div>
-                
-                <!-- প্লেয়ার ২ -->
-                <div class="col-md-6 col-lg-3 reveal player-item" data-category="football">
-                    <div class="player-card">
-                        <div class="player-img-box">
-                            <span class="player-badge">Star</span>
-                            <img src="https://picsum.photos/seed/player_football_1/400/500" alt="Player">
-                            <div class="social-overlay">
-                                <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="player-info">
-                            <h4>জামাল ভুঁইয়া</h4>
-                            <span class="player-role">মিডফিল্ডার (ফুটবল)</span>
-                            <button class="btn btn-read-more w-100 rounded-pill" onclick="showPlayerDetails('jamal')">
-                                বিস্তারিত দেখুন <i class="fas fa-arrow-right ms-1 small"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- প্লেয়ার ৩ -->
-                <div class="col-md-6 col-lg-3 reveal player-item" data-category="cricket">
-                    <div class="player-card">
-                        <div class="player-img-box">
-                            <span class="player-badge">Bowler</span>
-                            <img src="https://picsum.photos/seed/player_cricket_2/400/500" alt="Player">
-                            <div class="social-overlay">
-                                <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
-                            </div>
-                        </div>
-                        <div class="player-info">
-                            <h4>মুস্তাফিজুর</h4>
-                            <span class="player-role">ফাস্ট বোলার (ক্রিকেট)</span>
-                            <button class="btn btn-read-more w-100 rounded-pill" onclick="showPlayerDetails('mustafiz')">
-                                বিস্তারিত দেখুন <i class="fas fa-arrow-right ms-1 small"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- প্লেয়ার ৪ -->
-                <div class="col-md-6 col-lg-3 reveal player-item" data-category="football">
-                    <div class="player-card">
-                        <div class="player-img-box">
-                            <span class="player-badge">Goalkeeper</span>
-                            <img src="https://picsum.photos/seed/player_football_2/400/500" alt="Player">
-                            <div class="social-overlay">
-                                <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="player-info">
-                            <h4>আশরাফুল রনি</h4>
-                            <span class="player-role">গোলরক্ষক (ফুটবল)</span>
-                            <button class="btn btn-read-more w-100 rounded-pill" onclick="showPlayerDetails('rony')">
-                                বিস্তারিত দেখুন <i class="fas fa-arrow-right ms-1 small"></i>
-                            </button>
-                        </div>
+                <div class="col-lg-6 text-center text-lg-start order-lg-1">
+                    <h4 class="text-success fw-bold animate-fade-in delay-1">Hello, I am</h4>
+                    <h1 class="display-3 fw-bold mb-3 animate-fade-in delay-1">Sakib</h1>
+                    <h3 class="mb-4 text-secondary animate-fade-in delay-2">Professional Web Developer & Designer</h3>
+                    <p class="lead mb-4 animate-fade-in delay-2">I build beautiful, responsive, and user-friendly websites using modern technologies.</p>
+                    <div class="animate-fade-in delay-3">
+                        <a href="#portfolio" class="btn btn-custom me-3">View My Work</a>
+                        <a href="#contact" class="btn btn-outline-custom">Contact Me</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- গ্যালারি সেকশন -->
-    <section id="gallery" class="section-padding bg-light">
-        <div class="container">
-            <div class="section-header reveal">
-                <h2>স্মৃতির অ্যালবাম</h2>
-                <p>আমাদের জয় এবং স্মরণীয় মুহূর্তগুলোর কিছু ঝলক।</p>
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container py-5">
+            <div class="section-title">
+                <h2>About Me</h2>
+                <p>Get to know me better</p>
             </div>
-            <div class="row g-3">
-                <div class="col-md-4 col-sm-6 reveal">
-                    <div class="gallery-item" onclick="openLightbox(this)">
-                        <img src="https://picsum.photos/seed/sbsc1/600/400" alt="Gallery">
-                        <div class="gallery-overlay"><i class="fas fa-search-plus text-white fs-3"></i></div>
-                    </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="https://picsum.photos/seed/workspace/600/400" alt="About" class="img-fluid rounded shadow w-100">
                 </div>
-                <div class="col-md-4 col-sm-6 reveal">
-                    <div class="gallery-item" onclick="openLightbox(this)">
-                        <img src="https://picsum.photos/seed/sbsc2/600/400" alt="Gallery">
-                        <div class="gallery-overlay"><i class="fas fa-search-plus text-white fs-3"></i></div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 reveal">
-                    <div class="gallery-item" onclick="openLightbox(this)">
-                        <img src="https://picsum.photos/seed/sbsc3/600/400" alt="Gallery">
-                        <div class="gallery-overlay"><i class="fas fa-search-plus text-white fs-3"></i></div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 reveal">
-                    <div class="gallery-item" onclick="openLightbox(this)">
-                        <img src="https://picsum.photos/seed/sbsc4/600/400" alt="Gallery">
-                        <div class="gallery-overlay"><i class="fas fa-search-plus text-white fs-3"></i></div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 reveal">
-                    <div class="gallery-item" onclick="openLightbox(this)">
-                        <img src="https://picsum.photos/seed/sbsc5/600/400" alt="Gallery">
-                        <div class="gallery-overlay"><i class="fas fa-search-plus text-white fs-3"></i></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ম্যাচ সেকশন -->
-    <section id="schedule" class="section-padding match-section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10 reveal">
-                    <div class="match-card text-center">
-                        <div class="row align-items-center">
-                            <div class="col-md-4">
-                                <h3 class="fw-bold display-6">NSC</h3>
-                                <p class="text-white-50">হোস্ট টিম</p>
-                            </div>
-                            <div class="col-md-4">
-                                <h1 class="fw-bold text-white-10">VS</h1>
-                                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill mb-3">আগামী ম্যাচ</span>
-                                <div class="d-flex justify-content-center gap-3 text-white" id="countdown">
-                                    <!-- JS Countdown -->
+                <div class="col-lg-6 ps-lg-5">
+                    <h3 class="fw-bold mb-3">I'm a passionate developer from Bangladesh.</h3>
+                    <p class="text-muted">I specialize in creating stunning web experiences. My goal is to help businesses grow online through effective design and development strategies.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success fa-2x me-3"></i>
+                                <div>
+                                    <h5 class="mb-0">Clean Design</h5>
+                                    <small class="text-muted">Modern & Minimalistic</small>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <h3 class="fw-bold display-6">NFA</h3>
-                                <p class="text-white-50">প্রতিপক্ষ</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-code text-success fa-2x me-3"></i>
+                                <div>
+                                    <h5 class="mb-0">Web Development</h5>
+                                    <small class="text-muted">HTML, CSS, Bootstrap</small>
+                                </div>
                             </div>
                         </div>
-                        <hr class="my-4 border-white border-opacity-25">
-                        <p class="mb-2"><i class="fas fa-map-marker-alt me-2 text-warning"></i>Nehabo Primary School Play Ground </p>
-                        <p class="mb-3">10 February , 2026 (বিকাল 4টা)</p>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-mobile-alt text-success fa-2x me-3"></i>
+                                <div>
+                                    <h5 class="mb-0">Fully Responsive</h5>
+                                    <small class="text-muted">Mobile First Approach</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ফুটার -->
-    <footer id="contact">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-4 col-md-6">
-                    <h3 class="footer-heading">
-                        <i class="fas fa-crown text-warning me-2"></i>SBSC
-                    </h3>
-                    <p class="mt-3">
-                        Nehabo Sports Club একটি ঐতিহ্যবাহী সংগঠন। আমরা খেলাধুলার মাধ্যমে সমাজে সুস্থ ধারার বিনোদন ও নেতৃত্ব তৈরির লক্ষ্যে কাজ করে যাচ্ছি।
-                    </p>
-                    <div class="mt-4 d-flex gap-3">
-                        <a href="#" class="social-btn" style="background: rgba(255,255,255,0.1); color: white;"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-btn" style="background: rgba(255,255,255,0.1); color: white;"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-btn" style="background: rgba(255,255,255,0.1); color: white;"><i class="fab fa-youtube"></i></a>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="section-title">
+                <h2>My Portfolio</h2>
+                <p>Some of my recent projects</p>
+            </div>
+            
+            <div class="row">
+                <!-- Project 1 -->
+                <div class="col-md-4">
+                    <div class="project-card">
+                        <div class="project-img-wrapper">
+                            <img src="https://picsum.photos/seed/project1/400/300" alt="Project 1">
+                        </div>
+                        <div class="p-4">
+                            <h5>E-Commerce Website</h5>
+                            <p class="text-muted small">A complete online shopping platform design.</p>
+                            <button class="btn btn-outline-custom btn-sm w-100" onclick="openProjectModal('E-Commerce Website', 'This is a fully responsive E-Commerce template built with Bootstrap 5. It features a product grid, shopping cart UI, and checkout flow.', 'https://picsum.photos/seed/project1/800/500')">View Details</button>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-6">
-                    <h5 class="footer-heading">কুইক লিংক</h5>
-                    <a href="#home" class="footer-link">হোম</a>
-                    <a href="#teams" class="footer-link">দল</a>
-                    <a href="#schedule" class="footer-link">সময়সূচী</a>
-                    <a href="#gallery" class="footer-link">গ্যালারি</a>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="footer-heading">যোগাযোগ</h5>
-                    <ul class="list-unstyled small">
-                        <li class="mb-3"><i class="fas fa-map-marker-alt text-warning me-2"></i> Nehabo , Pachdona , Narsingdi Sadar, Narsingdi. </li>
-                        <li class="mb-3"><i class="fas fa-phone-alt text-warning me-2"></i> 01980963669</li>
-                        <li class="mb-3"><i class="fas fa-envelope text-warning me-2"></i> info@nsc-club.com</li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="footer-heading">নিউজলেটার</h5>
-                    <form onsubmit="event.preventDefault(); showToast('সাবস্ক্রিপশন সফল হয়েছে!', 'success');">
-                        <div class="input-group mb-3">
-                            <input type="email" class="form-control border-0 bg-white" placeholder="আপনার ইমেইল" required>
-                            <button class="btn btn-primary-custom px-3" type="submit"><i class="fas fa-paper-plane"></i></button>
+
+                <!-- Project 2 -->
+                <div class="col-md-4">
+                    <div class="project-card">
+                        <div class="project-img-wrapper">
+                            <img src="https://picsum.photos/seed/project2/400/300" alt="Project 2">
                         </div>
-                    </form>
+                        <div class="p-4">
+                            <h5>Travel Agency Landing Page</h5>
+                            <p class="text-muted small">Beautiful travel booking landing page.</p>
+                            <button class="btn btn-outline-custom btn-sm w-100" onclick="openProjectModal('Travel Agency', 'An immersive travel website featuring destination galleries, booking forms, and customer testimonials.', 'https://picsum.photos/seed/project2/800/500')">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="col-md-4">
+                    <div class="project-card">
+                        <div class="project-img-wrapper">
+                            <img src="https://picsum.photos/seed/project3/400/300" alt="Project 3">
+                        </div>
+                        <div class="p-4">
+                            <h5>Personal Dashboard</h5>
+                            <p class="text-muted small">Admin dashboard template with charts.</p>
+                            <button class="btn btn-outline-custom btn-sm w-100" onclick="openProjectModal('Admin Dashboard', 'A clean and modern admin dashboard interface including data tables, user management, and analytics charts.', 'https://picsum.photos/seed/project3/800/500')">View Details</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <hr class="border-secondary my-4">
-            <div class="text-center small text-muted">
-                &copy; <span id="year"></span> Nehabo Sports Club. All Rights Reserved. Designed with <i class="fas fa-heart text-danger"></i>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section py-5">
+        <div class="container py-5">
+            <div class="section-title">
+                <h2>Contact Me</h2>
+                <p>Let's work together</p>
             </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-lg border-0 p-4 rounded-4">
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Your Name</label>
+                                    <input type="text" class="form-control" required placeholder="John Doe">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Your Email</label>
+                                    <input type="email" class="form-control" required placeholder="john@example.com">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Subject</label>
+                                <input type="text" class="form-control" required placeholder="Project Inquiry">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-control" rows="5" required placeholder="Write your message here..."></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-custom px-5">
+                                    <i class="fas fa-paper-plane me-2"></i> Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="mb-3">
+                <a href="#" class="text-white me-3 fs-4"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-white me-3 fs-4"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-white me-3 fs-4"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="text-white fs-4"><i class="fab fa-github"></i></a>
+            </div>
+            <p>&copy; 2023 Sakib. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- প্লেয়ার ডিটেইলস মোডাল -->
-    <div class="modal fade" id="playerModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content shadow-lg">
+    <!-- Project Details Modal -->
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title fw-bold" id="playerModalName">Player Name</h5>
+                    <h5 class="modal-title fw-bold" id="modalTitle">Project Title</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4">
-                    <div class="text-center mb-4">
-                        <img id="playerModalImg" src="" class="player-modal-img mb-3" alt="Player">
-                        <h4 id="playerModalRole" class="text-primary fw-bold"></h4>
-                        <p class="text-muted small" id="playerModalId">ID: SBSC-001</p>
-                    </div>
-                    <p class="text-center" id="playerModalDesc">
-                        এই খেলোয়াড়টি আমাদের দলের একজন গুরুত্বপূর্ণ সদস্য। তিনি দীর্ঘদিন ধরে ক্লাবের হয়ে চমৎকার পারফরম্যান্স দিয়ে যাচ্ছেন।
-                    </p>
-                    
-                    <div class="row bg-light rounded p-3 text-center mt-4">
-                        <div class="col-4 stat-row-item">
-                            <h5 class="fw-bold mb-0" id="playerStat1">85</h5>
-                            <small class="text-muted">Match</small>
-                        </div>
-                        <div class="col-4 stat-row-item">
-                            <h5 class="fw-bold mb-0" id="playerStat2">120</h5>
-                            <small class="text-muted">Run/Goal</small>
-                        </div>
-                        <div class="col-4">
-                            <h5 class="fw-bold mb-0" id="playerStat3">15</h5>
-                            <small class="text-muted">Awards</small>
-                        </div>
+                <div class="modal-body">
+                    <img src="" id="modalImage" class="img-fluid rounded mb-3 w-100" alt="Project Detail">
+                    <p id="modalDescription" class="text-muted">Project description goes here.</p>
+                    <div class="mt-4">
+                        <h6>Technologies Used:</h6>
+                        <span class="badge bg-success me-1">HTML5</span>
+                        <span class="badge bg-success me-1">CSS3</span>
+                        <span class="badge bg-success">Bootstrap 5</span>
                     </div>
                 </div>
-                <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">বন্ধ করুন</button>
-                    <button type="button" class="btn btn-primary-custom rounded-pill px-4" onclick="showToast('কোচের সাথে যোগাযোগ করা হচ্ছে...', 'info')">কোচের সাথে কথা বলুন</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-custom">Live Demo</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- যোগদান মোডাল -->
-    <div class="modal fade" id="joinModal" tabindex="-1" aria-hidden="true">
+    <!-- Success Modal (Message Sent) -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content shadow-lg border-0">
-                <div class="modal-header bg-primary text-white rounded-top">
-                    <h5 class="modal-title fw-bold">ক্লাবে যোগ দিন</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <form onsubmit="handleJoinSubmit(event)">
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">পুরো নাম</label>
-                            <input type="text" class="form-control bg-light border-0" required placeholder="আপনার নাম">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">ফোন নম্বর</label>
-                            <input type="tel" class="form-control bg-light border-0" required placeholder="01XXXXXXXXX">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">পছন্দের খেলা</label>
-                            <select class="form-select bg-light border-0">
-                                <option>ক্রিকেট</option>
-                                <option>ফুটবল</option>
-                                <option>দুটোই</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary-custom w-100 py-2 fw-bold">আবেদন করুন</button>
-                    </form>
+            <div class="modal-content text-center p-5">
+                <div class="modal-body">
+                    <div class="checkmark-circle">
+                        <div class="background"></div>
+                        <div class="checkmark draw"></div>
+                    </div>
+                    <h3 class="fw-bold text-success mb-3">Message Sent!</h3>
+                    <p class="text-muted">Thank you for reaching out. Your message has been successfully sent to <strong>sakib929281@gmail.com</strong>.</p>
+                    <p class="small text-muted">I will get back to you as soon as possible.</p>
+                    <button type="button" class="btn btn-custom mt-3" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- গ্যালারি লাইটবক্স মোডাল -->
-    <div class="modal fade" id="lightboxModal" tabindex="-1">
-        <div class="modal-dialog modal-fullscreen modal-dialog-centered bg-black bg-opacity-90">
-            <div class="modal-content bg-transparent border-0">
-                <div class="modal-body p-0 d-flex align-items-center justify-content-center">
-                    <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-4 z-3" data-bs-dismiss="modal"></button>
-                    <img id="lightboxImage" src="" class="img-fluid shadow-lg rounded" alt="Preview" style="max-height: 90vh;">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- টোস্ট কন্টেইনার -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast align-items-center text-white border-0 toast-custom" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body" id="toastMessage"></div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- স্ক্রিপ্ট -->
+    <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
     <script>
-        // ১. লোডার
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            preloader.style.opacity = '0';
-            setTimeout(() => { preloader.style.display = 'none'; }, 500);
+        // Initialize Bootstrap Modals
+        const projectModalElement = document.getElementById('projectModal');
+        const projectModal = new bootstrap.Modal(projectModalElement);
+        
+        const successModalElement = document.getElementById('successModal');
+        const successModal = new bootstrap.Modal(successModalElement);
+
+        // Function to open Project Modal with dynamic content
+        function openProjectModal(title, description, imgSrc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDescription').innerText = description;
+            document.getElementById('modalImage').src = imgSrc;
+            projectModal.show();
+        }
+
+        // Handle Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent actual page reload
+            
+            // Here you would normally send data to a backend.
+            // Since we want to show the modal behavior requested:
+            
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            // Simulate loading state
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // Reset button
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                // Reset form
+                this.reset();
+                
+                // Show Success Modal
+                successModal.show();
+            }, 1500); // Fake 1.5s delay for animation effect
         });
-
-        // ২. ডায়নামিক ইয়ার
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // ৩. নেভবার স্ক্রল এফেক্ট
-        const navbar = document.getElementById('mainNavbar');
-        const menuIcon = document.getElementById('menuIcon');
-        const sections = document.querySelectorAll('section, header');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-                menuIcon.classList.remove('text-white');
-                menuIcon.classList.add('text-dark');
-            } else {
-                navbar.classList.remove('scrolled');
-                menuIcon.classList.add('text-white');
-                menuIcon.classList.remove('text-dark');
-            }
-
-            // স্ক্রল স্পাই এক্টিভ লিংক
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 150;
-                if (scrollY >= sectionTop) current = section.getAttribute('id');
-            });
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        // ৪. রিভিল অ্যানিমেশন
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    if(entry.target.querySelector('.counter')) startCounters();
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // ৫. কাউন্টার অ্যানিমেশন
-        let counted = false;
-        function startCounters() {
-            if (counted) return;
-            const counters = document.querySelectorAll('.counter');
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const speed = 200; 
-                const inc = target / speed;
-                const updateCount = () => {
-                    const count = +counter.innerText;
-                    if(count < target) {
-                        counter.innerText = Math.ceil(count + inc);
-                        setTimeout(updateCount, 20);
-                    } else {
-                        counter.innerText = target + "+";
-                    }
-                };
-                updateCount();
-            });
-            counted = true;
-        }
-
-        // ৬. কাউন্টডাউন টাইমার
-        const matchDate = new Date("Oct 25, 2024 16:00:00").getTime();
-        const countdownEl = document.getElementById('countdown');
-
-        setInterval(() => {
-            const now = new Date().getTime();
-            const distance = matchDate - now;
-
-            if (distance < 0) {
-                countdownEl.innerHTML = "<span class='badge bg-danger'>ম্যাচ শুরু হয়ে গেছে</span>";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            
-            countdownEl.innerHTML = `
-                <div class="text-center"><span class="fw-bold fs-4 d-block">${days}</span><small>দিন</small></div>
-                <div class="text-center"><span class="fw-bold fs-4 d-block">:</span></div>
-                <div class="text-center"><span class="fw-bold fs-4 d-block">${hours}</span><small>ঘন্টা</small></div>
-                <div class="text-center"><span class="fw-bold fs-4 d-block">:</span></div>
-                <div class="text-center"><span class="fw-bold fs-4 d-block">${minutes}</span><small>মিনিট</small></div>
-            `;
-        }, 1000);
-
-        // ৭. খেলোয়াড় ফিল্টার
-        function filterPlayers(category, btn) {
-            document.querySelectorAll('.btn-outline-success').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const items = document.querySelectorAll('.player-item');
-            items.forEach(item => {
-                if (category === 'all' || item.getAttribute('data-category') === category) {
-                    item.style.display = 'block';
-                    setTimeout(() => item.style.opacity = '1', 10);
-                } else {
-                    item.style.display = 'none';
-                    item.style.opacity = '0';
-                }
-            });
-        }
-
-        // ৮. প্লেয়ার ডিটেইলস মোডাল লজিক (ডাটা সোর্স)
-        const playersData = {
-            'rakibul': {
-                name: 'রাকিবুল হাসান',
-                role: 'অল-রাউন্ডার (ক্রিকেট)',
-                img: 'https://picsum.photos/seed/player_cricket_1/200/200',
-                desc: 'রাকিবুল আমাদের দলের অধিনায়ক। তার ব্যাটিং এবং বোলিং দুটিতেই সমান দক্ষতা। গত মৌসুমে তিনি সর্বোচ্চ রান সংগ্রহকারী ছিলেন।',
-                stats: ['120', '2500', '18']
-            },
-            'jamal': {
-                name: 'জামাল ভুঁইয়া',
-                role: 'মিডফিল্ডার (ফুটবল)',
-                img: 'https://picsum.photos/seed/player_football_1/200/200',
-                desc: 'মাঠের মাঝখানে তার দপুটি দেখার মতো। জামালের পাসিং সক্ষমতা এবং গোল করার ক্ষমতা আমাদের দলকে অনেক ম্যাচ জিতিয়েছে।',
-                stats: ['95', '45', '12']
-            },
-            'mustafiz': {
-                name: 'মুস্তাফিজুর',
-                role: 'ফাস্ট বোলার (ক্রিকেট)',
-                img: 'https://picsum.photos/seed/player_cricket_2/200/200',
-                desc: 'তার কাটার এবং স্লোয়ার বল ব্যাটসম্যানদের জন্য দুঃস্বপ্ন। ডেথ ওভারে বোলিং করার জন্য তিনি বিখ্যাত।',
-                stats: ['80', '150', '20']
-            },
-            'rony': {
-                name: 'আশরাফুল রনি',
-                role: 'গোলরক্ষক (ফুটবল)',
-                img: 'https://picsum.photos/seed/player_football_2/200/200',
-                desc: 'রনি আমাদের দলের নির্ভরযোগ্য গোলরক্ষক। তার রিফ্লেক্স এবং পেনাল্টি সেভ করার ক্ষমতা অসাধারণ।',
-                stats: ['60', '0', '25']
-            }
-        };
-
-        function showPlayerDetails(playerId) {
-            const player = playersData[playerId];
-            if(!player) return;
-
-            document.getElementById('playerModalName').textContent = player.name;
-            document.getElementById('playerModalRole').textContent = player.role;
-            document.getElementById('playerModalDesc').textContent = player.desc;
-            document.getElementById('playerModalImg').src = player.img;
-            
-            // Update Stats
-            document.getElementById('playerStat1').textContent = player.stats[0];
-            document.getElementById('playerStat2').textContent = player.stats[1];
-            document.getElementById('playerStat3').textContent = player.stats[2];
-
-            const myModal = new bootstrap.Modal(document.getElementById('playerModal'));
-            myModal.show();
-        }
-
-        // ৯. ইউটিলিটি ফাংশন
-        function showToast(message, type = 'success') {
-            const toastEl = document.getElementById('liveToast');
-            const toastBody = document.getElementById('toastMessage');
-            
-            // Set background color based on type
-            toastEl.className = `toast align-items-center text-white border-0 toast-custom bg-${type === 'warning' ? 'warning' : (type === 'info' ? 'info' : 'success')}`;
-            if(type === 'warning') toastEl.classList.add('text-dark'); // text readability for yellow bg
-
-            toastBody.textContent = message;
-            const toast = new bootstrap.Toast(toastEl);
-            toast.show();
-        }
-
-        function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function openContactModal() {
-            showToast('অনুগ্রহ করে নিচে ফুটার থেকে ফোন নম্বরে কল করুন।', 'info');
-        }
-
-        function handleJoinSubmit(e) {
-            e.preventDefault();
-            const modalEl = document.getElementById('joinModal');
-            const modalInstance = bootstrap.Modal.getInstance(modalEl);
-            modalInstance.hide();
-            showToast('স্বাগতম! আপনার আবেদন গ্রহণ করা হয়েছে।', 'success');
-            e.target.reset();
-        }
-
-        function openLightbox(element) {
-            const imgSrc = element.querySelector('img').src;
-            document.getElementById('lightboxImage').src = imgSrc;
-            const lightboxModal = new bootstrap.Modal(document.getElementById('lightboxModal'));
-            lightboxModal.show();
-        }
     </script>
 </body>
 </html>
-
